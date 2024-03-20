@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,14 +8,14 @@ import 'package:guess_card_smaller_or_greater/card_model_and_list/card_model.dar
 import 'package:guess_card_smaller_or_greater/constants/assets.dart';
 import 'package:lottie/lottie.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class GameScreen extends StatefulWidget {
+  const GameScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<GameScreen> createState() => _GameScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
+class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   List<CardModel> card1 = [];
   List<CardModel> card2 = [];
   int index = 0;
@@ -61,6 +60,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     card2.shuffle();
 
     myController.forward();
+
+    timeCount = 6;
 
     startTimeCount();
 
@@ -203,6 +204,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     card2.shuffle();
   }
 
+//*****************************************************************************/
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -211,6 +213,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return Container(
       color: Colors.pink.withOpacity(0.2),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
             'If You get $winPoint Point, You Win !',
@@ -228,18 +231,18 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: Color.fromARGB(255, 20, 1, 105),
-                width: 5,
-              ),
+                  color: Color.fromARGB(255, 20, 1, 105),
+                  width: 5,
+                  strokeAlign: BorderSide.strokeAlignOutside),
             ),
             width: width * 0.9,
             height: high * 0.1,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
                   alignment: Alignment.center,
-                  width: width * 0.4,
+                  width: width * 0.45,
                   height: high * 0.1,
                   color: Color.fromARGB(255, 20, 1, 105),
                   child: const Text(
@@ -253,9 +256,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  width: width * 0.4,
+                  color: Colors.amber.withOpacity(0.2),
+                  width: width * 0.45,
                   height: high * 0.1,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(
                         color: Color.fromARGB(255, 180, 12, 0),
@@ -320,6 +325,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             children: [
               for (int i = 0; i < 3; i++)
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onPressed: enableButton
                       ? () {
                           timeCount = 0;
@@ -331,11 +342,20 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                           setState(() {});
                         }
                       : null,
-                  child: Text(preditButton[i]),
+                  child: Text(
+                    preditButton[i],
+                    style: const TextStyle(fontSize: 20),
+                  ),
                 ),
             ],
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
             onPressed: enableNextRound
                 ? () {
                     timeCount = 5;
@@ -343,7 +363,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                     startTimeCount();
                   }
                 : null,
-            child: Text('Next Round'),
+            child: const Text(
+              'Next Round',
+              style: TextStyle(fontSize: 20),
+            ),
           ),
         ],
       ),

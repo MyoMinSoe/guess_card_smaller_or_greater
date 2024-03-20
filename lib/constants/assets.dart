@@ -1,6 +1,6 @@
 class Assets {
   Assets._();
-  
+
   /// Assets for assets10
   /// images/10.png
   static const String assets10 = "images/10.png";
@@ -56,5 +56,8 @@ class Assets {
   /// Assets for assetsQueen
   /// images/queen.png
   static const String assetsQueen = "images/queen.png";
-}
 
+  /// Assets for assetsJoker
+  /// images/joker.png
+  static const String assetsJoker = "images/joker.png";
+}
