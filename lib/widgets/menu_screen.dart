@@ -171,7 +171,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
             const SizedBox(height: 50),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red.withOpacity(0.1),
+                backgroundColor: Colors.red.withOpacity(0.5),
                 padding: const EdgeInsets.all(40),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
