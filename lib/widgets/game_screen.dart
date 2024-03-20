@@ -78,14 +78,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void checkCard(String s) {
     switch (s) {
       case 'Smaller':
-        if (card1[index].number < card2[index].number) {
+        if (card1[index].number > card2[index].number) {
           point++;
         } else {
           point--;
         }
         break;
       case 'Bigger':
-        if (card1[index].number > card2[index].number) {
+        if (card1[index].number < card2[index].number) {
           point++;
         } else {
           point--;
