@@ -1,199 +1,113 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:guess_card_smaller_or_greater/constants/assets.dart';
-import 'package:guess_card_smaller_or_greater/widgets/second_page.dart';
+import 'package:guess_card_smaller_or_greater/widgets/game_with_button_menu.dart';
+import 'package:guess_card_smaller_or_greater/widgets/game_with_countdown_menu.dart';
 
-class MenuScreen extends StatefulWidget {
+class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
 
   @override
-  State<MenuScreen> createState() => _MenuScreenState();
-}
-
-class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
-  late final myController = AnimationController(
-    duration: Duration(seconds: 1),
-    vsync: this,
-  );
-  late Animation animation;
-  @override
-  void initState() {
-    animation = Tween<double>(begin: 0.0, end: 1).animate(
-      myController,
-    );
-    myController.forward();
-    myController.addListener(() {
-      if (animation.status == AnimationStatus.completed) {
-        myController.reverse();
-      }
-      if (animation.status == AnimationStatus.dismissed) {
-        myController.forward();
-      }
-    });
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    myController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double width = size.width;
+    double high = size.height;
     return Container(
-      padding: const EdgeInsets.all(30),
+      padding: EdgeInsets.only(top: 30),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.amber, Colors.orange, Colors.red],
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.orange,
+            // Colors.red,
+            Colors.yellow,
+            Colors.red,
+          ],
         ),
       ),
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Stack(
+            const Text(
+              'ဆော့ချင်သည့်ကဒ်ကိုရွေးပါ။',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w800,
+                color: Color.fromARGB(255, 241, 16, 0),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AnimatedBuilder(
-                  animation: animation,
-                  builder: (_, __) {
-                    return Transform.rotate(
-                      angle: animation.value * 0.7,
-                      origin: Offset(0, 200),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(94, 255, 157, 0),
-                              offset: Offset.zero,
-                              blurRadius: 50,
-                              spreadRadius: 0,
-                            ),
-                          ],
-                        ),
-                        child: Image.asset(
-                          Assets.assetsJack,
-                          width: 200,
-                          height: 400,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                Positioned(
-                  child: AnimatedBuilder(
-                    animation: animation,
-                    builder: (_, __) {
-                      return Transform.rotate(
-                        angle: animation.value * 0.3,
-                        origin: Offset(0, 200),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromARGB(94, 255, 157, 0),
-                                offset: Offset.zero,
-                                blurRadius: 50,
-                                // spreadRadius: 100,
-                              ),
-                            ],
-                          ),
-                          child: Image.asset(
-                            Assets.assetsJoker,
-                            width: 200,
-                            height: 400,
-                          ),
-                        ),
-                      );
-                    },
+                InkWell(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => TimerGame(),
+                    ),
+                  ),
+                  child: Image.asset(
+                    Assets.assetsJoker,
+                    width: width * 0.4,
+                    height: high * 0.25,
                   ),
                 ),
-                Positioned(
-                  child: AnimatedBuilder(
-                    animation: animation,
-                    builder: (_, __) {
-                      return Transform.rotate(
-                        angle: -animation.value * 0.15,
-                        origin: Offset(-0, 200),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromARGB(94, 255, 157, 0),
-                                offset: Offset.zero,
-                                blurRadius: 50,
-                                // spreadRadius: 100,
-                              ),
-                            ],
-                          ),
-                          child: Image.asset(
-                            Assets.assetsQueen,
-                            width: 200,
-                            height: 400,
-                          ),
-                        ),
-                      );
-                    },
+                const Text(
+                  'Timer နဲ့ဆော့မယ်',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Color.fromARGB(255, 12, 0, 67),
                   ),
-                ),
-                Positioned(
-                  child: AnimatedBuilder(
-                    animation: animation,
-                    builder: (_, __) {
-                      return Transform.rotate(
-                        angle: -animation.value * 0.7,
-                        origin: Offset(-0, 200),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromARGB(94, 255, 157, 0),
-                                offset: Offset.zero,
-                                blurRadius: 50,
-                                // spreadRadius: 100,
-                              ),
-                            ],
-                          ),
-                          child: Image.asset(
-                            Assets.assetsKing,
-                            width: 200,
-                            height: 400,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                )
               ],
             ),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red.withOpacity(0.5),
-                padding: const EdgeInsets.all(40),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                elevation: 10,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const SecondPage(),
+            const SizedBox(height: 10),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ButtonGame(),
+                    ),
                   ),
-                );
-              },
-              child: const Text(
-                'PLAY',
-                style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.yellow,
+                  child: Image.asset(
+                    Assets.assetsQueen,
+                    width: width * 0.4,
+                    height: high * 0.25,
+                  ),
                 ),
-              ),
+                const Text(
+                  'Button နဲ့ဆော့မယ်',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Color.fromARGB(255, 12, 0, 67),
+                  ),
+                )
+              ],
             ),
+            const SizedBox(height: 10),
+            TextButton(
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  backgroundColor: Colors.yellow,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                onPressed: () {
+                  exit(0);
+                },
+                child: const Text(
+                  'ဂိမ်းမှထွက်မည်',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 35,
+                    color: Color.fromARGB(255, 241, 16, 0),
+                  ),
+                ))
           ],
         ),
       ),

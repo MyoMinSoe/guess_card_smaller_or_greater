@@ -8,6 +8,24 @@ import 'package:guess_card_smaller_or_greater/card_model_and_list/card_model.dar
 import 'package:guess_card_smaller_or_greater/constants/assets.dart';
 import 'package:lottie/lottie.dart';
 
+class GameWithButton extends StatelessWidget {
+  const GameWithButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 12, 0, 67),
+        foregroundColor: Colors.white,
+        title: const Text('ကစားပွဲ'),
+      ),
+      body: const GameScreen(),
+    );
+  }
+}
+
+//********************* GameScreen Widget *************************************/
+
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
 
@@ -113,10 +131,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const Text(
-                    'You Won',
+                    'နိုင်ပြီ',
                     style: TextStyle(
                       color: Color.fromARGB(255, 249, 150, 2),
-                      fontSize: 30,
+                      fontSize: 40,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -126,8 +144,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     height: 200,
                   ),
                   Text(
-                    'You got $point point !',
+                    textAlign: TextAlign.center,
+                    'သင်အမှတ် $point မှတ်ရရှိပါသည်။',
                     style: const TextStyle(
+                      height: 2,
                       color: Color.fromARGB(255, 2, 127, 229),
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -140,6 +160,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             actions: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   backgroundColor: Colors.blueAccent,
                   foregroundColor: const Color.fromARGB(255, 36, 1, 95),
                   shape: const RoundedRectangleBorder(
@@ -154,7 +175,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   Navigator.of(context).pop();
                 },
                 child: const Text(
-                  'Play Again',
+                  'ထပ်ဆော့မည်',
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -162,6 +183,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   backgroundColor: Colors.blueAccent,
                   foregroundColor: const Color.fromARGB(255, 36, 1, 95),
                   shape: const RoundedRectangleBorder(
@@ -174,7 +196,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   exit(0);
                 },
                 child: const Text(
-                  'Quit',
+                  'ထွက်မည်',
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -207,6 +229,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 //*****************************************************************************/
   @override
   Widget build(BuildContext context) {
+    String s = ModalRoute.of(context)!.settings.arguments as String;
+    winPoint = int.parse(s);
     Size size = MediaQuery.of(context).size;
     double high = size.height;
     double width = size.width;
@@ -216,11 +240,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            'If You get $winPoint Point, You Win !',
+            'သင့်အမှတ် $winPoint မှတ်ရလျှင်၊ သင်နိုင်ပြီ။',
             style: TextStyle(fontSize: 25),
           ),
           Text(
-            'Point     $point',
+            'သင့်ရမှတ်     $point',
             style: const TextStyle(
               color: Color.fromARGB(255, 12, 0, 67),
               fontSize: 40,
@@ -246,7 +270,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   height: high * 0.1,
                   color: Color.fromARGB(255, 20, 1, 105),
                   child: const Text(
-                    'Time Left',
+                    'လက်ကျန်ချိန်',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
@@ -364,7 +388,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   }
                 : null,
             child: const Text(
-              'Next Round',
+              'နောက်ပွဲ',
               style: TextStyle(fontSize: 20),
             ),
           ),
