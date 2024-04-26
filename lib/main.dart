@@ -16,7 +16,11 @@ class MyApp extends StatelessWidget {
           backgroundColor: const Color.fromARGB(255, 210, 14, 0),
           //const Color.fromARGB(255, 12, 0, 67),
           foregroundColor: Colors.white,
-          title: const Text('Flip Card Game'),
+          title: const Text(
+            'Flip Card Game',
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
         ),
         body: const MenuScreen(),
       ),

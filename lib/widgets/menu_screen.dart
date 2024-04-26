@@ -57,7 +57,7 @@ class MenuScreen extends StatelessWidget {
                   'Timer နဲ့ဆော့မယ်',
                   style: TextStyle(
                     fontSize: 20,
-                    color: Color.fromARGB(255, 12, 0, 67),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 )
               ],
@@ -82,7 +82,7 @@ class MenuScreen extends StatelessWidget {
                   'Button နဲ့ဆော့မယ်',
                   style: TextStyle(
                     fontSize: 20,
-                    color: Color.fromARGB(255, 12, 0, 67),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 )
               ],

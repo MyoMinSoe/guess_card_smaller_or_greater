@@ -36,7 +36,6 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   List<CardModel> card1 = [];
   List<CardModel> card2 = [];
-  int index = 0;
   int point = 0;
   int winPoint = 2;
 
@@ -60,6 +59,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         time.cancel();
         timeCount = 5;
         point--;
+
         nextRound();
         startTimeCount();
         setState(() {});
@@ -96,21 +96,21 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void checkCard(String s) {
     switch (s) {
       case 'Smaller':
-        if (card1[index].number > card2[index].number) {
+        if (card1.first.number > card2.first.number) {
           point++;
         } else {
           point--;
         }
         break;
       case 'Bigger':
-        if (card1[index].number < card2[index].number) {
+        if (card1.first.number < card2.first.number) {
           point++;
         } else {
           point--;
         }
         break;
       case 'Equal':
-        if (card1[index].number == card2[index].number) {
+        if (card1.first.number == card2.first.number) {
           point++;
         } else {
           point--;
@@ -242,7 +242,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            'သင့်အမှတ် $winPoint မှတ်ရလျှင်၊ သင်နိုင်ပြီ။',
+            '$winPoint မှတ်ရလျှင်၊ သင်နိုင်ပြီ။',
             style: const TextStyle(fontSize: 25),
           ),
           Text(
@@ -320,7 +320,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     child: SizedBox(
                       width: 180,
                       height: 300,
-                      child: Image.asset(card1[index].image),
+                      child: Image.asset(card1.first.image),
                     ),
                   );
                 },
@@ -335,7 +335,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                       height: 300,
                       child: FlipCard(
                         key: cardkey,
-                        backWidget: Image.asset(card2[index].image),
+                        backWidget: Image.asset(card2.first.image),
                         frontWidget: Image.asset(Assets.assetsBack),
                         controller: flipcardController,
                         rotateSide: RotateSide.bottom,

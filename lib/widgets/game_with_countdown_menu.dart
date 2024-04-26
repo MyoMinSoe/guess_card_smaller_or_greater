@@ -43,91 +43,77 @@ class _GameWithCountdownMenuState extends State<GameWithCountdownMenu> {
       child: Center(
         child: Form(
           key: formController,
-          child: ListView(
-            children: [
-              Lottie.asset(
-                'images/cat_playing.json',
-                width: 300,
-                height: 200,
-              ),
-              const Text(
-                textAlign: TextAlign.center,
-                'Enter Your Win Point...',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 20, 1, 105),
-                  fontSize: 40,
-                  fontWeight: FontWeight.w900,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Lottie.asset(
+                  'images/cat_playing.json',
+                  width: 300,
+                  height: 200,
                 ),
-              ),
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                  autofocus: true,
-                  style: const TextStyle(fontSize: 30),
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.blue.withOpacity(0.2),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                  ),
+                const Text(
                   textAlign: TextAlign.center,
-                  controller: textEditingController,
-                  validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        int.parse(value) < 1) {
-                      return 'Point must be at least 1';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.all(20),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30))),
-                onPressed: () {
-                  if (formController.currentState!.validate()) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const GameWithCountdown(),
-                        settings: RouteSettings(
-                          arguments: textEditingController.text,
-                        ),
-                      ),
-                    );
-                  }
-                  setState(() {});
-                },
-                child: const Text(
-                  'START',
+                  'Enter Your Win Point...',
                   style: TextStyle(
-                    color: Colors.red,
+                    color: Color.fromARGB(255, 20, 1, 105),
                     fontSize: 40,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: ElevatedButton(
+                SizedBox(
+                  width: 300,
+                  child: TextFormField(
+                    autofocus: true,
+                    style: const TextStyle(fontSize: 30),
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      hintText: 'Enter Number',
+                      filled: true,
+                      fillColor: Colors.blue.withOpacity(0.2),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 20, 1, 105),
+                          width: 4,
+                        ),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    textAlign: TextAlign.center,
+                    controller: textEditingController,
+                    validator: (value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          int.parse(value) < 1) {
+                        return 'Point must be at least 1';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(height: 30),
+                ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 40),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30))),
+                          borderRadius: BorderRadius.circular(25))),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    if (formController.currentState!.validate()) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const GameWithCountdown(),
+                          settings: RouteSettings(
+                            arguments: textEditingController.text,
+                          ),
+                        ),
+                      );
+                    }
+                    setState(() {});
                   },
                   child: const Text(
-                    'MENU',
+                    'START',
                     style: TextStyle(
                       color: Colors.red,
                       fontSize: 40,
@@ -135,8 +121,30 @@ class _GameWithCountdownMenuState extends State<GameWithCountdownMenu> {
                     ),
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 40),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25))),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      'MENU',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
