@@ -19,13 +19,11 @@ class _GameWithCountdownState extends State<GameWithCountdown>
     with TickerProviderStateMixin {
   List<CardModel> card1 = [];
   List<CardModel> card2 = [];
-  int index = 0;
   int point = 0;
   int winPoint = 0;
 
   List<String> preditButton = ['Smaller', 'Bigger', 'Equal'];
   bool enableButton = true;
-  bool enableNextRound = false;
 
   late final myController = AnimationController(
       duration: const Duration(milliseconds: 600), vsync: this);
@@ -41,7 +39,9 @@ class _GameWithCountdownState extends State<GameWithCountdown>
   void startTimeCount() {
     time = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (timeCount == 0) {
-        --point;
+        Future.delayed(const Duration(milliseconds: 600), () {
+          --point;
+        });
         time?.cancel();
         enableButton = false;
         roundCount = 5;
@@ -57,7 +57,7 @@ class _GameWithCountdownState extends State<GameWithCountdown>
 
   late Timer roundTime;
   int roundCount = 5;
-  //****** Round Counter Timer Function************ */
+  //****** Round Count Timer Function************ */
   void roundCounter() {
     roundTime = Timer.periodic(
       const Duration(seconds: 1),
@@ -102,129 +102,143 @@ class _GameWithCountdownState extends State<GameWithCountdown>
   }
 
 //*********** Flip Card Check Function**************************** */
-  void checkCard(String s) {
+  Future<void> checkCard(String s) async {
     switch (s) {
       case 'Smaller':
-        if (card1[index].number > card2[index].number) {
-          point++;
+        if (card1.first.number > card2.first.number) {
+          Future.delayed(const Duration(milliseconds: 600), () {
+            point++;
+          });
         } else {
-          point--;
+          Future.delayed(const Duration(milliseconds: 600), () {
+            point--;
+          });
         }
         break;
       case 'Bigger':
-        if (card1[index].number < card2[index].number) {
-          point++;
+        if (card1.first.number < card2.first.number) {
+          Future.delayed(const Duration(milliseconds: 600), () {
+            point++;
+          });
         } else {
-          point--;
+          Future.delayed(const Duration(milliseconds: 600), () {
+            point--;
+          });
         }
         break;
       case 'Equal':
-        if (card1[index].number == card2[index].number) {
-          point++;
+        if (card1.first.number == card2.first.number) {
+          Future.delayed(const Duration(milliseconds: 600), () {
+            point++;
+          });
         } else {
-          point--;
+          Future.delayed(const Duration(milliseconds: 600), () {
+            point--;
+          });
         }
         break;
       default:
     }
-    if (point == winPoint) {
-      showDialog(
-        context: context,
-        builder: (_) {
-          roundCount = 0;
-          timeCount = 0;
-          time?.cancel();
-          roundTime.cancel();
-          return AlertDialog(
-            alignment: Alignment.center,
-            content: SizedBox(
-              width: 400,
-              height: 400,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text(
-                    'You Won',
+    Future.delayed(const Duration(milliseconds: 601), () {
+      if (point == winPoint) {
+        showDialog(
+          context: context,
+          builder: (_) {
+            roundCount = 0;
+            timeCount = 0;
+            time?.cancel();
+            roundTime.cancel();
+            return AlertDialog(
+              alignment: Alignment.center,
+              content: SizedBox(
+                width: 400,
+                height: 400,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text(
+                      'You Won',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 249, 150, 2),
+                        fontSize: 30,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Lottie.asset(
+                      'images/won_cup.json',
+                      width: 200,
+                      height: 200,
+                    ),
+                    Text(
+                      'You got $point point !',
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 2, 127, 229),
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              actionsAlignment: MainAxisAlignment.spaceEvenly,
+              actions: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    foregroundColor: const Color.fromARGB(255, 36, 1, 95),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    point = 0;
+                    roundCount = 5;
+                    roundCounter();
+                    setState(() {});
+                  },
+                  child: const Text(
+                    'Play Again',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 249, 150, 2),
-                      fontSize: 30,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Lottie.asset(
-                    'images/won_cup.json',
-                    width: 200,
-                    height: 200,
-                  ),
-                  Text(
-                    'You got $point point !',
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 2, 127, 229),
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            actionsAlignment: MainAxisAlignment.spaceEvenly,
-            actions: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  foregroundColor: const Color.fromARGB(255, 36, 1, 95),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8),
+                      fontSize: 20,
                     ),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  point = 0;
-                  roundCount = 5;
-                  roundCounter();
-                  setState(() {});
-                },
-                child: const Text(
-                  'Play Again',
-                  style: TextStyle(
-                    fontSize: 20,
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    foregroundColor: const Color.fromARGB(255, 36, 1, 95),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  foregroundColor: const Color.fromARGB(255, 36, 1, 95),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8),
+                  onPressed: () {
+                    exit(0);
+                  },
+                  child: const Text(
+                    'Quit',
+                    style: TextStyle(
+                      fontSize: 20,
                     ),
                   ),
                 ),
-                onPressed: () {
-                  exit(0);
-                },
-                child: const Text(
-                  'Quit',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      );
-    }
+              ],
+            );
+          },
+        );
+      }
+    });
     setState(() {});
   }
 
 //************** Round Begin function *********************** */
   void nextRound() {
     if (!cardkey.currentState!.isFront) {
-      cardkey.currentState!.filpCard();
+      cardkey.currentState!.flipCard();
     }
     if (myAnimation.status == AnimationStatus.completed) {
       myController.reset();
@@ -286,7 +300,7 @@ class _GameWithCountdownState extends State<GameWithCountdown>
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: Color.fromARGB(255, 20, 1, 105),
+                  color: const Color.fromARGB(255, 20, 1, 105),
                   width: 5,
                 ),
               ),
@@ -299,7 +313,7 @@ class _GameWithCountdownState extends State<GameWithCountdown>
                     alignment: Alignment.center,
                     width: width * 0.4,
                     height: high * 0.1,
-                    color: Color.fromARGB(255, 20, 1, 105),
+                    color: const Color.fromARGB(255, 20, 1, 105),
                     child: const Text(
                       'Time Left',
                       style: TextStyle(
@@ -343,12 +357,11 @@ class _GameWithCountdownState extends State<GameWithCountdown>
                   builder: (context, child) {
                     return Transform.rotate(
                       angle: -myAnimation.value * 1,
-                      origin: Offset(-200, 200),
-                      // offset: Offset(-myAnimation.value * 250, 0),
+                      origin: const Offset(-200, 200),
                       child: SizedBox(
                         width: 180,
                         height: 300,
-                        child: Image.asset(card1[index].image),
+                        child: Image.asset(card1.first.image),
                       ),
                     );
                   },
@@ -364,7 +377,7 @@ class _GameWithCountdownState extends State<GameWithCountdown>
                         height: 300,
                         child: FlipCard(
                           key: cardkey,
-                          backWidget: Image.asset(card2[index].image),
+                          backWidget: Image.asset(card2.first.image),
                           frontWidget: Image.asset(Assets.assetsBack),
                           controller: flipcardController,
                           rotateSide: RotateSide.bottom,
@@ -392,7 +405,7 @@ class _GameWithCountdownState extends State<GameWithCountdown>
                             timeCount = 0;
                             time?.cancel();
                             checkCard(preditButton[i]);
-                            cardkey.currentState!.filpCard();
+                            cardkey.currentState!.flipCard();
                             enableButton = false;
                             roundCount = 5;
                             roundCounter();

@@ -60,7 +60,11 @@ class _GameWithButtonMenuState extends State<GameWithButtonMenu>
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.amber, Colors.orange, Colors.red],
+          colors: [
+            Color.fromARGB(255, 20, 1, 105),
+            Colors.pink,
+            Colors.white,
+          ],
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
         ),
@@ -77,18 +81,18 @@ class _GameWithButtonMenuState extends State<GameWithButtonMenu>
                     builder: (_, __) {
                       return Transform.rotate(
                         angle: animation.value * 0.7,
-                        origin: Offset(0, 200),
+                        origin: const Offset(0, 200),
                         child: Container(
                           decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromARGB(94, 255, 157, 0),
-                                offset: Offset.zero,
-                                blurRadius: 50,
-                                spreadRadius: 0,
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //     color: Color.fromARGB(255, 20, 1, 105),
+                              //     offset: Offset.zero,
+                              //     blurRadius: 50,
+                              //     spreadRadius: 0,
+                              //   ),
+                              // ],
                               ),
-                            ],
-                          ),
                           child: Image.asset(
                             Assets.assetsJack,
                             width: 200,
@@ -104,18 +108,18 @@ class _GameWithButtonMenuState extends State<GameWithButtonMenu>
                       builder: (_, __) {
                         return Transform.rotate(
                           angle: animation.value * 0.3,
-                          origin: Offset(0, 200),
+                          origin: const Offset(0, 200),
                           child: Container(
                             decoration: const BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(94, 255, 157, 0),
-                                  offset: Offset.zero,
-                                  blurRadius: 50,
-                                  // spreadRadius: 100,
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Color.fromARGB(255, 20, 1, 105),
+                                //     offset: Offset.zero,
+                                //     blurRadius: 50,
+                                //     // spreadRadius: 100,
+                                //   ),
+                                // ],
                                 ),
-                              ],
-                            ),
                             child: Image.asset(
                               Assets.assetsJoker,
                               width: 200,
@@ -132,18 +136,18 @@ class _GameWithButtonMenuState extends State<GameWithButtonMenu>
                       builder: (_, __) {
                         return Transform.rotate(
                           angle: -animation.value * 0.15,
-                          origin: Offset(-0, 200),
+                          origin: const Offset(-0, 200),
                           child: Container(
                             decoration: const BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(94, 255, 157, 0),
-                                  offset: Offset.zero,
-                                  blurRadius: 50,
-                                  // spreadRadius: 100,
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Color.fromARGB(255, 20, 1, 105),
+                                //     offset: Offset.zero,
+                                //     blurRadius: 50,
+                                //     // spreadRadius: 100,
+                                //   ),
+                                // ],
                                 ),
-                              ],
-                            ),
                             child: Image.asset(
                               Assets.assetsQueen,
                               width: 200,
@@ -160,18 +164,18 @@ class _GameWithButtonMenuState extends State<GameWithButtonMenu>
                       builder: (_, __) {
                         return Transform.rotate(
                           angle: -animation.value * 0.7,
-                          origin: Offset(-0, 200),
+                          origin: const Offset(-0, 200),
                           child: Container(
                             decoration: const BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(94, 255, 157, 0),
-                                  offset: Offset.zero,
-                                  blurRadius: 50,
-                                  // spreadRadius: 100,
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Color.fromARGB(255, 20, 1, 105),
+                                //     offset: Offset.zero,
+                                //     blurRadius: 50,
+                                //     // spreadRadius: 100,
+                                //   ),
+                                // ],
                                 ),
-                              ],
-                            ),
                             child: Image.asset(
                               Assets.assetsKing,
                               width: 200,
@@ -189,7 +193,7 @@ class _GameWithButtonMenuState extends State<GameWithButtonMenu>
               textAlign: TextAlign.center,
               'အနိုင်ရမှတ် ထည့်ပါ။',
               style: TextStyle(
-                color: Color.fromARGB(255, 158, 66, 0),
+                color: Color.fromARGB(255, 20, 1, 105),
                 fontSize: 30,
                 fontWeight: FontWeight.w800,
               ),
@@ -198,11 +202,12 @@ class _GameWithButtonMenuState extends State<GameWithButtonMenu>
             SizedBox(
               width: 300,
               child: TextFormField(
-                style: TextStyle(fontSize: 30),
+                autofocus: true,
+                style: const TextStyle(fontSize: 30),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.amberAccent.withOpacity(0.5),
+                  fillColor: Colors.white.withOpacity(0.5),
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(24),
@@ -222,7 +227,7 @@ class _GameWithButtonMenuState extends State<GameWithButtonMenu>
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange[200],
+                  backgroundColor: Colors.white,
                   padding: const EdgeInsets.all(15),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30))),
@@ -230,7 +235,7 @@ class _GameWithButtonMenuState extends State<GameWithButtonMenu>
                 if (formController.currentState!.validate()) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => GameWithButton(),
+                      builder: (context) => const GameWithButton(),
                       settings: RouteSettings(
                         arguments: textEditingController.text,
                       ),
@@ -252,7 +257,7 @@ class _GameWithButtonMenuState extends State<GameWithButtonMenu>
               padding: const EdgeInsets.only(top: 10),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange[200],
+                    backgroundColor: Colors.white,
                     padding: const EdgeInsets.all(15),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30))),

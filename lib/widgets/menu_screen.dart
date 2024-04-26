@@ -14,16 +14,15 @@ class MenuScreen extends StatelessWidget {
     double width = size.width;
     double high = size.height;
     return Container(
-      padding: EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 30),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.orange,
-            // Colors.red,
-            Colors.yellow,
-            Colors.red,
+            Colors.white,
+            Colors.pink,
+            Color.fromARGB(255, 20, 1, 105),
           ],
         ),
       ),
@@ -45,7 +44,7 @@ class MenuScreen extends StatelessWidget {
                 InkWell(
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => TimerGame(),
+                      builder: (context) => const TimerGame(),
                     ),
                   ),
                   child: Image.asset(
@@ -70,7 +69,7 @@ class MenuScreen extends StatelessWidget {
                 InkWell(
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ButtonGame(),
+                      builder: (context) => const ButtonGame(),
                     ),
                   ),
                   child: Image.asset(
@@ -91,8 +90,9 @@ class MenuScreen extends StatelessWidget {
             const SizedBox(height: 10),
             TextButton(
                 style: TextButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                  backgroundColor: Colors.yellow,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),

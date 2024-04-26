@@ -160,7 +160,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             actions: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   backgroundColor: Colors.blueAccent,
                   foregroundColor: const Color.fromARGB(255, 36, 1, 95),
                   shape: const RoundedRectangleBorder(
@@ -183,7 +184,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   backgroundColor: Colors.blueAccent,
                   foregroundColor: const Color.fromARGB(255, 36, 1, 95),
                   shape: const RoundedRectangleBorder(
@@ -212,7 +214,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   void nextRound() {
     if (!cardkey.currentState!.isFront) {
-      cardkey.currentState!.filpCard();
+      cardkey.currentState!.flipCard();
     }
     if (myAnimation.status == AnimationStatus.completed) {
       myController.reset();
@@ -241,7 +243,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         children: [
           Text(
             'သင့်အမှတ် $winPoint မှတ်ရလျှင်၊ သင်နိုင်ပြီ။',
-            style: TextStyle(fontSize: 25),
+            style: const TextStyle(fontSize: 25),
           ),
           Text(
             'သင့်ရမှတ်     $point',
@@ -255,7 +257,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                  color: Color.fromARGB(255, 20, 1, 105),
+                  color: const Color.fromARGB(255, 20, 1, 105),
                   width: 5,
                   strokeAlign: BorderSide.strokeAlignOutside),
             ),
@@ -268,7 +270,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   alignment: Alignment.center,
                   width: width * 0.45,
                   height: high * 0.1,
-                  color: Color.fromARGB(255, 20, 1, 105),
+                  color: const Color.fromARGB(255, 20, 1, 105),
                   child: const Text(
                     'လက်ကျန်ချိန်',
                     style: TextStyle(
@@ -313,7 +315,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 builder: (context, child) {
                   return Transform.rotate(
                     angle: -myAnimation.value * 1,
-                    origin: Offset(-200, 200),
+                    origin: const Offset(-200, 200),
                     // offset: Offset(-myAnimation.value * 250, 0),
                     child: SizedBox(
                       width: 180,
@@ -360,7 +362,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                           timeCount = 0;
                           time.cancel();
                           checkCard(preditButton[i]);
-                          cardkey.currentState!.filpCard();
+                          cardkey.currentState!.flipCard();
                           enableButton = false;
                           enableNextRound = true;
                           setState(() {});

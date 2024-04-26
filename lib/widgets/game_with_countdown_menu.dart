@@ -33,7 +33,11 @@ class _GameWithCountdownMenuState extends State<GameWithCountdownMenu> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Colors.orange, Colors.red, Colors.amber],
+          colors: [
+            Colors.pink,
+            Colors.white,
+            Color.fromARGB(255, 20, 1, 105),
+          ],
         ),
       ),
       child: Center(
@@ -50,7 +54,7 @@ class _GameWithCountdownMenuState extends State<GameWithCountdownMenu> {
                 textAlign: TextAlign.center,
                 'Enter Your Win Point...',
                 style: TextStyle(
-                  color: Colors.amber,
+                  color: Color.fromARGB(255, 20, 1, 105),
                   fontSize: 40,
                   fontWeight: FontWeight.w900,
                 ),
@@ -58,11 +62,12 @@ class _GameWithCountdownMenuState extends State<GameWithCountdownMenu> {
               SizedBox(
                 width: 300,
                 child: TextFormField(
-                  style: TextStyle(fontSize: 30),
+                  autofocus: true,
+                  style: const TextStyle(fontSize: 30),
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.amberAccent.withOpacity(0.5),
+                    fillColor: Colors.blue.withOpacity(0.2),
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(24),
@@ -84,7 +89,7 @@ class _GameWithCountdownMenuState extends State<GameWithCountdownMenu> {
               const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange[200],
+                    backgroundColor: Colors.white,
                     padding: const EdgeInsets.all(20),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30))),
@@ -92,7 +97,7 @@ class _GameWithCountdownMenuState extends State<GameWithCountdownMenu> {
                   if (formController.currentState!.validate()) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => GameWithCountdown(),
+                        builder: (context) => const GameWithCountdown(),
                         settings: RouteSettings(
                           arguments: textEditingController.text,
                         ),
@@ -114,7 +119,7 @@ class _GameWithCountdownMenuState extends State<GameWithCountdownMenu> {
                 padding: const EdgeInsets.only(top: 30),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange[200],
+                      backgroundColor: Colors.white,
                       padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30))),
